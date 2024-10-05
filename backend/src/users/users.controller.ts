@@ -19,18 +19,25 @@ import { CreateUserDto } from './dto/create-user.dto';
     create(@Body()CreateUserDto:CreateUserDto){
       return this.userService.create(CreateUserDto);
     }
-    @Get()
+  /*  @Get()
    // @UseGuards(AuthGuard)
     findOne(@Param('id') id:string) {
       return this.userService.findOne(+id);
-    }
-    
-
-    @Get('/task/:taskid')
+    }*/
+   /* @Get('/task/:taskid')
    // @UseGuards(AuthGuard)
     findAll(@Param('taskid') taskid:number) {
       return this.userService.findAllUserByTaskId(taskid);
-    }
+    }*/
+      @Get(':id') // Changed to use :id for fetching a specific user
+      findOne(@Param('id') id: string) {
+          return this.userService.findOne(+id);
+      }
+  
+      @Get(':id/tasks') // New endpoint to get all tasks for a user
+      findAllTasks(@Param('id') userId: string) {
+          return this.userService.findAllTasksByUserId(+userId);
+      }
   
     @Patch(':id')
     update(@Param('id') id:string, @Body() updateUserDto: UpdateUserDto) {
