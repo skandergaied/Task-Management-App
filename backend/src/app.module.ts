@@ -1,12 +1,28 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { TaskModule } from './task/task.module';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { User } from './users/entites/user.entity';
+import { Task } from './task/entites/task.entity';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
-  imports: [AuthModule, UsersModule, TaskModule],
+  imports: [
+     UsersModule, TaskModule
+    ,TypeOrmModule.forRoot({
+      type: 'mysql',
+      host: "localhost",  
+      port: 3306,
+      username: 'iskander',
+      password: 'mohamed',
+      database: 'nestgsTMA',
+      entities: [User, Task],
+     // synchronize: process.env.ENV !== 'production',
+     synchronize: false,
+    }), AuthModule
+    ],
   controllers: [AppController],
   providers: [AppService],
 })
