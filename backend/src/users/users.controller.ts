@@ -12,6 +12,7 @@ import {
 
   } from '@nestjs/common';   
 import { CreateUserDto } from './dto/create-user.dto';
+import { CreateTaskDto } from 'src/task/dto/create-task.dto';
   @Controller('users')
   export class UserController {
     constructor(private readonly userService: UsersService) {}
@@ -19,6 +20,14 @@ import { CreateUserDto } from './dto/create-user.dto';
     create(@Body()CreateUserDto:CreateUserDto){
       return this.userService.create(CreateUserDto);
     }
+    
+    @Post(':id/tasks')
+    async createUserTasks(@Param('id') id: string, @Body() createTaskDto: CreateTaskDto) {
+      return await this.userService.createUsertasks(id, createTaskDto);
+    }
+
+
+  
   /*  @Get()
    // @UseGuards(AuthGuard)
     findOne(@Param('id') id:string) {

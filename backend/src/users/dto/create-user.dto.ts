@@ -1,15 +1,7 @@
 import { IsString, IsNotEmpty } from 'class-validator';
 export class CreateUserDto {
-  @IsNotEmpty()
-  @IsString()
+  username: string;
+  userUUID: string; // Ensure this is provided
   email: string;
-  @IsNotEmpty()
-  @IsString()
-  password: string;
-  @IsNotEmpty()
-  @IsString()
-  firstName: string;
-  @IsNotEmpty()
-  @IsString()
-  lastName: string;
+  password: string; // Ensure this matches the entity property
 }

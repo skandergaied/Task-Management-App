@@ -5,14 +5,9 @@ import { CreateUserDto } from 'src/users/dto/create-user.dto';
 import {  CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskdDto } from './dto/update-task.dto';
 import { Task } from './entites/task.entity';
+
 @Injectable()
 export class TaskService {
-    create(createTaskDto: CreateTaskDto) {
-        throw new Error('Method not implemented.');
-    }
-}
-@Injectable()
-export class UsersService {
      constructor(
         @InjectRepository(Task)
         private taskRepository:Repository<Task>,

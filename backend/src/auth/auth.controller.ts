@@ -7,9 +7,9 @@ import { Registerdto } from './dto/register.dto';
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
-  @Post()
-  create(@Body() createAuthDto: LoginDto) {
-    return this.authService.create(createAuthDto);
+  @Post('login')
+  login(@Body() LoginDto: LoginDto) {
+    return this.authService.login(LoginDto);
   }
 
   @Get()
@@ -31,4 +31,5 @@ export class AuthController {
   remove(@Param('id') id: string) {
     return this.authService.remove(+id);
   }
+  
 }

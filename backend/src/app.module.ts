@@ -7,6 +7,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './users/entites/user.entity';
 import { Task } from './task/entites/task.entity';
 import { AuthModule } from './auth/auth.module';
+import { AuthGuard } from './auth/auth.guard';
 
 @Module({
   imports: [
@@ -15,15 +16,15 @@ import { AuthModule } from './auth/auth.module';
       type: 'mysql',
       host: "localhost",  
       port: 3306,
-      username: 'iskander',
-      password: 'mohamed',
-      database: 'nestgsTMA',
+      username: 'root',
+      password: '',
+      database: 'nest_gs_tma',
       entities: [User, Task],
-     // synchronize: process.env.ENV !== 'production',
-     synchronize: false,
+    synchronize: process.env.ENV !== 'production',
+    // synchronize: false,
     }), AuthModule
     ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService,AuthGuard]
 })
 export class AppModule {}
