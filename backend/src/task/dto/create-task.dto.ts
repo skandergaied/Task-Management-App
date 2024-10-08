@@ -3,22 +3,24 @@ import { IsString, IsDate, IsNotEmpty } from 'class-validator';
 export class CreateTaskDto {
     @IsNotEmpty()
     @IsString()
-    title: string;
+    title?: string;
 
     @IsNotEmpty()
     @IsString()
-    description: string;
+    description?: string;
 
     @IsNotEmpty()
     @IsString()
-    status: string;
+    status?: string;
 
     @IsDate()
-    dueDate: Date;
+    dueDate?: Date;
 
     @IsDate()
-    createdAt: Date;
+    createdAt?: Date;
 
     @IsDate()
-    updatedAt: Date;
+    updatedAt?: Date;
+
+    
 }
