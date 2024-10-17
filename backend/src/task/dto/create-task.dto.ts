@@ -1,25 +1,25 @@
 import { IsString, IsDate, IsNotEmpty } from 'class-validator';
 
 export class CreateTaskDto {
-    @IsNotEmpty()
-    @IsString()
+  //  @IsNotEmpty()
+   // @IsString()
     title?: string;
 
-    @IsNotEmpty()
-    @IsString()
+  //  @IsNotEmpty()
+  //  @IsString()
     description?: string;
 
-    @IsNotEmpty()
-    @IsString()
+ //   @IsNotEmpty()
+  //  @IsString()
     status?: string;
-
-    @IsDate()
+    
+ //   @IsDate()
     dueDate?: Date;
 
-    @IsDate()
+  //  @IsDate()
     createdAt?: Date;
 
-    @IsDate()
+  //  @IsDate()
     updatedAt?: Date;
 
     

@@ -14,14 +14,16 @@ export class Task {
   status: string;  
 
   @Column({ type: 'timestamp', nullable: true })
-  dueDate: Date;  
+  dueDate: Date;
+ // @Column({ type: 'timestamp', nullable: true })
+ // userid:number;
 
-  @ManyToOne(type => User, user => user.task )
-   user: User[];
   @CreateDateColumn()
   createdAt: Date;  
 
   @UpdateDateColumn()
-  updatedAt: Date;  
+  updatedAt: Date; 
+  @ManyToOne(() => User, (user) => user.tasks)
+  user: User; 
  
 }

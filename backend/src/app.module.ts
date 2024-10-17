@@ -7,7 +7,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './users/entites/user.entity';
 import { Task } from './task/entites/task.entity';
 import { AuthModule } from './auth/auth.module';
-import { AuthGuard } from './auth/auth.guard';
+import { AuthGuard } from './auth/auth/auth.guard';
 
 @Module({
   imports: [
@@ -18,7 +18,7 @@ import { AuthGuard } from './auth/auth.guard';
       port: 3306,
       username: 'root',
       password: '',
-      database: 'nest_gs_tma',
+      database: 'n__g__t',
       entities: [User, Task],
     synchronize: process.env.ENV !== 'production',
     // synchronize: false,

@@ -7,6 +7,7 @@ import { CreateTaskDto } from 'src/task/dto/create-task.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { DeepPartial } from 'typeorm';
 import { Task } from 'src/task/entites/task.entity';
+import { RegisterDto} from 'src/auth/dto/register.dto';
 
 @Injectable()
 export class UsersService {
@@ -17,25 +18,26 @@ export class UsersService {
         private readonly taskRepository: Repository<Task>,
 
      ){}
-     async create(createUserDto: CreateUserDto): Promise<User> {
+   /*  async create(createUserDto: CreateUserDto): Promise<User> {
       const user = new User();
-      
-      // Assign values from DTO to the user entity
       user.username = createUserDto.username;
-      user.userUUID = createUserDto.userUUID ; // Generate a new UUID
       user.email = createUserDto.email;
-      user.password = createUserDto.password; // Password will be hashed in the entity
-
-      // Save the user to the database
+      user.password = createUserDto.password; 
+      console.log(user.password);
       return await this.userRepository.save(user);
-  }
-      findAllTasksByUserId(TaskId){
-        return this.userRepository.find({
-            where:{
-                TaskId:{ id:TaskId },
-            }
-        })
+  }*/
+      create(createUserDto: RegisterDto) {
+        const user = new User();
+        user.email = createUserDto.email;
+        user.username = createUserDto.username;
+        user.password = createUserDto.password; // Password gets hashed in the entity
+        return this.userRepository.save(user);
       }
+   /*   findAllTasksByUserId(TaskId){
+        return this.userRepository.find({
+            where: { TaskId: TaskId }, 
+        })
+      }*/
       findOne(id: number) {
         return this.userRepository.findOneBy({ id });
       }
@@ -50,28 +52,23 @@ export class UsersService {
             'User not found .Cannot create Proflile',
             HttpStatus.BAD_REQUEST,
         );
-        const newTask=this.taskRepository.create({
-          ...CreataDto
+        const newTask = this.taskRepository.create({
+          ...CreataDto, // Ensure proper spreading of data from DTO
+          user, // Associate with the user
         });
-        const savePost=await this.taskRepository.save(newTask);
-        return savePost;
+        const savedTask = await this.taskRepository.save(newTask);
+        return savedTask;
 
         
-      }
-    /*  async findAllTasksByUserId(userId: number): Promise<Task[]> {
-        return this.taskRepository.find({ where: { userId } }); 
-      }*/
-
-    
-    
+      }    
       remove(id: number) {
         return this.userRepository.delete(id);
       }
 
       update({ id, updateUserDto }: { id: number; updateUserDto: UpdateUserDto; }) {
         const updateData: DeepPartial<User> = {
-            firstName: updateUserDto.firstName,
-            lastName: updateUserDto.lastName,
+            username:updateUserDto.username
+           
         };
         return this.userRepository.update(+id, updateUserDto);
     }

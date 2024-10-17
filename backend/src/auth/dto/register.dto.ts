@@ -1,6 +1,10 @@
-import { PartialType } from '@nestjs/mapped-types';
-import { LoginDto } from './login.dto';
+export class RegisterDto {
+//  @IsEmail()
+  email: string;
 
-export class Registerdto extends PartialType(LoginDto) {
-    
+//  @IsNotEmpty()
+  password: string;  // Make sure this is 'password' not 'Password'
+
+//  @IsNotEmpty()
+  username: string;
 }

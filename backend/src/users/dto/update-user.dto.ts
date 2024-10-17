@@ -1,10 +1,8 @@
 
 export class UpdateUserDto {
     [key: string]: any;
-  
-    // Your existing properties
+    username: string; 
     email?: string;
     password?: string;
-    firstName?: string;
-    lastName?: string;
+
   }
