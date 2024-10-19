@@ -11,6 +11,9 @@ import { RegisterDto} from 'src/auth/dto/register.dto';
 
 @Injectable()
 export class UsersService {
+  static findOne(userId: number) {
+    throw new Error('Method not implemented.');
+  }
      constructor(
         @InjectRepository(User)
         private userRepository:Repository<User>,
@@ -18,14 +21,7 @@ export class UsersService {
         private readonly taskRepository: Repository<Task>,
 
      ){}
-   /*  async create(createUserDto: CreateUserDto): Promise<User> {
-      const user = new User();
-      user.username = createUserDto.username;
-      user.email = createUserDto.email;
-      user.password = createUserDto.password; 
-      console.log(user.password);
-      return await this.userRepository.save(user);
-  }*/
+   
       create(createUserDto: RegisterDto) {
         const user = new User();
         user.email = createUserDto.email;
@@ -33,14 +29,12 @@ export class UsersService {
         user.password = createUserDto.password; // Password gets hashed in the entity
         return this.userRepository.save(user);
       }
-   /*   findAllTasksByUserId(TaskId){
-        return this.userRepository.find({
-            where: { TaskId: TaskId }, 
-        })
-      }*/
+  
+
       findOne(id: number) {
         return this.userRepository.findOneBy({ id });
       }
+
       async createUsertasks(id:string,CreataDto:CreateTaskDto){
         const userId = parseInt(id, 10);
     
@@ -52,15 +46,36 @@ export class UsersService {
             'User not found .Cannot create Proflile',
             HttpStatus.BAD_REQUEST,
         );
-        const newTask = this.taskRepository.create({
-          ...CreataDto, // Ensure proper spreading of data from DTO
-          user, // Associate with the user
+        const newTask = this.taskRepository.create ({
+          ...CreataDto, 
+          user, 
         });
         const savedTask = await this.taskRepository.save(newTask);
         return savedTask;
+      }
+      
 
-        
-      }    
+      async getUserTasks(userId: string) {
+        const parsedUserId = parseInt(userId, 10);
+    
+        const tasks = await this.taskRepository.find({
+            where: { user: { id: parsedUserId } },
+        });
+    
+        if (tasks.length === 0) {
+            console.log(`No tasks found for user with ID ${parsedUserId}.`);
+            return [];  // Return an empty array instead of nothing
+        }
+    
+        console.log(`Tasks for user with ID ${parsedUserId}:`);
+        tasks.forEach(task => {
+            console.log(`- ${task.title}: ${task.description}`);
+        });
+    
+        return tasks;  // Make sure tasks are returned
+    }
+    
+
       remove(id: number) {
         return this.userRepository.delete(id);
       }
@@ -72,8 +87,6 @@ export class UsersService {
         };
         return this.userRepository.update(+id, updateUserDto);
     }
-      
-
 }
 
 

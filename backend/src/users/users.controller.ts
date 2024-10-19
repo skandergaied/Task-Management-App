@@ -9,9 +9,13 @@
       Request,
       Param,
       Post,
-      UseGuards
+      UseGuards,
+      HttpException,
+      HttpStatus
 
-    } from '@nestjs/common';   
+    } from '@nestjs/common'; 
+    
+  
 
   import { AuthGuard } from 'src/auth/auth/auth.guard';
   import { CreateUserDto } from './dto/create-user.dto';
@@ -28,37 +32,38 @@
   }
   
   @Post(':id/tasks')
-  // @UseGuards(AuthGuard)
+ // @UseGuards(AuthGuard)
   async createUserTasks(@Param('id') id: string, @Body() createTaskDto: CreateTaskDto) {
     return await this.userService.createUsertasks(id, createTaskDto);
   }
 
-
-    /*  @Get()
-    // @UseGuards(AuthGuard)
-      findOne(@Param('id') id:string) {
-        return this.userService.findOne(+id);
-      }*/
-    /* @Get('/task/:taskid')
-    // @UseGuards(AuthGuard)
-      findAll(@Param('taskid') taskid:number) {
-        return this.userService.findAllUserByTaskId(taskid);
-      }*/
         @Get(':id') 
         findOne(@Param('id') id: string) {
             return this.userService.findOne(+id);
         }
     
      
-    
       @Patch(':id')
       update(@Param('id') id:string, @Body() updateUserDto: UpdateUserDto) {
         return this.userService.update({ id: +id, updateUserDto });
       }
     
+
       @Delete(':id')
-    //  @UseGuards(AuthGuard)
       remove(@Param('id') id: String) {
         return this.userService.remove(+id);
       }
+     
+      
+    @Get(':id/tasks')
+    async getUserTasks(@Param('id') id: string) {
+        try {
+            const tasks = await this.userService.getUserTasks(id);
+            console.log(tasks);
+            return tasks; 
+        } catch (error) {
+            throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
+        }
+    }
+
     }

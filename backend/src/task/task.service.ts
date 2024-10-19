@@ -12,18 +12,7 @@ export class TaskService {
         private taskRepository:Repository<Task>,
 
      ){}
-     create(createTaskDto: CreateTaskDto) {
-        const task = new Task();
-        task.title = createTaskDto.title;
-        task.description = createTaskDto.description;
-        task.status = createTaskDto.status; 
-        task.createdAt=createTaskDto.createdAt;  
-        task.updatedAt=createTaskDto.updatedAt;  
-        task.dueDate = createTaskDto.dueDate;
-
-        return this.taskRepository.save(task);
-      }
-      ///////////////////////
+     
       async createTask(createTaskDto: CreateTaskDto, user: User): Promise<Task> {
         const task = new Task();
         task.title = createTaskDto.title;
@@ -34,14 +23,7 @@ export class TaskService {
     
         return await this.taskRepository.save(task);
     }
-
-
-
-
-
-
-      //////////////////////
-
+    
      findOne(id: number) {
         return this.taskRepository.findOneBy({ id });
       }

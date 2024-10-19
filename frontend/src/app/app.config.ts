@@ -7,8 +7,6 @@ import {
   withFetch,
   withInterceptors,
 } from '@angular/common/http';
-//import { jwtInterceptor } from './core/inteceptors/jwt.interceptor';
-
 
 
 export const appConfig: ApplicationConfig = {

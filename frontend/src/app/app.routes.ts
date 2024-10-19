@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-
+import { authGuard } from './shared/guards/auth.guard';
 export const routes: Routes = [
        {
         path:'login',
@@ -19,9 +19,14 @@ export const routes: Routes = [
        {
         path:'task',
         loadComponent:()=>
-            import('./features/contact/contact.component').then(
-                (m)=>m.ContactComponent
+            import('./features/task/task.component').then(
+                (m)=>m.TaskComponent
             ),
-       }
+             canActivate: [authGuard],
+       },
+       {
+         path: '**',
+         redirectTo: 'login',
+       },
 
 ];

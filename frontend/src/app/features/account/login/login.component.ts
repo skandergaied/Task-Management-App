@@ -33,6 +33,7 @@ export class LoginComponent {
 
   login() {
     if (this.loginForm.invalid) {
+      console.log('skongaied');
       return;
     }
 

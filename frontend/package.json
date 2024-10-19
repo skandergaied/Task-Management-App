@@ -24,8 +24,10 @@
     "@angular/router": "^18.1.0",
     "@angular/ssr": "^18.1.3",
     "express": "^4.18.2",
+    "jwt-decode": "^4.0.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
+    "typeorm": "^0.3.20",
     "zone.js": "~0.14.3"
   },
   "devDependencies": {

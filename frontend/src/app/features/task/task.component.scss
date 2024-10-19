@@ -1,0 +1,13 @@
+.table-custom {
+    margin-left: 20px; /* Adjust as needed */
+    margin-right: 20px; /* Adjust as needed */
+  }
+ 
+  .btn-custom {
+    background-color: #007bff; // Custom blue color
+    color: white; // Text color
+    border: none; // Remove border
+    &:hover {
+      background-color: darken(#007bff, 10%); // Darken on hover
+    }
+  }
